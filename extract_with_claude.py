@@ -45,27 +45,29 @@ def analyze_image_with_claude(image_path: str) -> list[dict]:
     # Codificar imagem
     image_data, media_type = encode_image(image_path)
 
-    prompt = f"""Analise esta imagem de uma página de vocabulário.
+    prompt = f"""Analise esta imagem de uma página de vocabulário alemão.
 
 A imagem tem dimensões {width}x{height} pixels.
 
-Para CADA imagem/ícone de vocabulário visível, retorne as coordenadas do bounding box.
+Para CADA ícone/desenho de vocabulário visível, identifique:
+1. A palavra alemã associada (com artigo: der/die/das)
+2. A posição do CENTRO do ícone como PORCENTAGEM da imagem
 
 IMPORTANTE:
-- Identifique APENAS os ícones/desenhos (não o texto)
-- Retorne coordenadas precisas em pixels [x1, y1, x2, y2]
-- x1, y1 = canto superior esquerdo
-- x2, y2 = canto inferior direito
+- Identifique APENAS os ícones/desenhos ilustrativos (NÃO texto)
+- Use porcentagens (0-100) para x e y do CENTRO do ícone
+- Exemplo: um ícone no canto superior esquerdo seria x=10, y=10
+- Exemplo: um ícone no centro da imagem seria x=50, y=50
 
 Retorne APENAS um JSON válido no formato:
 {{
   "items": [
-    {{"word": "palavra em alemão", "bbox": [x1, y1, x2, y2], "description": "descrição curta"}},
+    {{"word": "die Wassermelone", "center_x": 15, "center_y": 25, "description": "melancia"}},
     ...
   ]
 }}
 
-Seja preciso nas coordenadas. Analise cuidadosamente a posição de cada ícone."""
+Liste TODOS os ícones de vocabulário que você consegue ver."""
 
     print(f"Analisando {image_path} ({width}x{height})...")
     print("Enviando para Claude API...")
@@ -115,25 +117,48 @@ Seja preciso nas coordenadas. Analise cuidadosamente a posição de cada ícone.
         return []
 
 
-def extract_images(image_path: str, items: list[dict], output_dir: str = "claude_extracted"):
-    """Extrai as imagens baseado nas coordenadas do Claude."""
+def extract_images(image_path: str, items: list[dict], output_dir: str = "claude_extracted", box_size: int = 120):
+    """
+    Extrai as imagens baseado nas coordenadas (porcentagem) do Claude.
+
+    Args:
+        box_size: tamanho do quadrado a extrair ao redor do centro (em pixels)
+    """
     os.makedirs(output_dir, exist_ok=True)
 
     img = Image.open(image_path)
+    width, height = img.size
     results = []
 
     for i, item in enumerate(items):
-        bbox = item.get("bbox", [])
-        if len(bbox) != 4:
-            continue
+        # Converter porcentagem para pixels
+        center_x_pct = item.get("center_x", 0)
+        center_y_pct = item.get("center_y", 0)
 
-        x1, y1, x2, y2 = bbox
+        if center_x_pct == 0 or center_y_pct == 0:
+            # Fallback para formato antigo (bbox)
+            bbox = item.get("bbox", [])
+            if len(bbox) == 4:
+                x1, y1, x2, y2 = bbox
+            else:
+                continue
+        else:
+            # Converter porcentagem para pixels
+            center_x = int(width * center_x_pct / 100)
+            center_y = int(height * center_y_pct / 100)
+
+            # Criar bounding box ao redor do centro
+            half_size = box_size // 2
+            x1 = center_x - half_size
+            y1 = center_y - half_size
+            x2 = center_x + half_size
+            y2 = center_y + half_size
 
         # Validar coordenadas
         x1 = max(0, int(x1))
         y1 = max(0, int(y1))
-        x2 = min(img.width, int(x2))
-        y2 = min(img.height, int(y2))
+        x2 = min(width, int(x2))
+        y2 = min(height, int(y2))
 
         if x2 <= x1 or y2 <= y1:
             continue
@@ -194,7 +219,9 @@ def main():
 
     print(f"\nEncontrados {len(items)} itens:")
     for item in items:
-        print(f"  - {item.get('word')}: {item.get('bbox')}")
+        cx = item.get('center_x', '?')
+        cy = item.get('center_y', '?')
+        print(f"  - {item.get('word')}: centro=({cx}%, {cy}%)")
 
     # Extrair imagens
     output_dir = f"claude_extracted_{os.path.splitext(os.path.basename(image_path))[0]}"
