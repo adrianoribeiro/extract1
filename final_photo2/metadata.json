@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "image_file": "image_01.png",
+    "bbox": [
+      37,
+      223,
+      111,
+      301
+    ],
+    "original_bbox": [
+      47,
+      233,
+      101,
+      291
+    ]
+  },
+  {
+    "id": 2,
+    "image_file": "image_02.png",
+    "bbox": [
+      53,
+      998,
+      139,
+      1064
+    ],
+    "original_bbox": [
+      63,
+      1008,
+      129,
+      1054
+    ]
+  },
+  {
+    "id": 3,
+    "image_file": "image_03.png",
+    "bbox": [
+      30,
+      1094,
+      141,
+      1166
+    ],
+    "original_bbox": [
+      40,
+      1104,
+      131,
+      1156
+    ]
+  },
+  {
+    "id": 4,
+    "image_file": "image_04.png",
+    "bbox": [
+      38,
+      1176,
+      139,
+      1251
+    ],
+    "original_bbox": [
+      48,
+      1186,
+      129,
+      1241
+    ]
+  },
+  {
+    "id": 5,
+    "image_file": "image_05.png",
+    "bbox": [
+      36,
+      1260,
+      141,
+      1412
+    ],
+    "original_bbox": [
+      46,
+      1270,
+      131,
+      1402
+    ]
+  }
+]

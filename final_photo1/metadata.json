@@ -1,0 +1,130 @@
+[
+  {
+    "id": 1,
+    "image_file": "image_01.png",
+    "bbox": [
+      272,
+      339,
+      370,
+      400
+    ],
+    "original_bbox": [
+      282,
+      349,
+      360,
+      390
+    ]
+  },
+  {
+    "id": 2,
+    "image_file": "image_02.png",
+    "bbox": [
+      224,
+      586,
+      375,
+      689
+    ],
+    "original_bbox": [
+      234,
+      596,
+      365,
+      679
+    ]
+  },
+  {
+    "id": 3,
+    "image_file": "image_03.png",
+    "bbox": [
+      251,
+      712,
+      375,
+      830
+    ],
+    "original_bbox": [
+      261,
+      722,
+      365,
+      820
+    ]
+  },
+  {
+    "id": 4,
+    "image_file": "image_04.png",
+    "bbox": [
+      248,
+      839,
+      374,
+      965
+    ],
+    "original_bbox": [
+      258,
+      849,
+      364,
+      955
+    ]
+  },
+  {
+    "id": 5,
+    "image_file": "image_05.png",
+    "bbox": [
+      233,
+      986,
+      368,
+      1061
+    ],
+    "original_bbox": [
+      243,
+      996,
+      358,
+      1051
+    ]
+  },
+  {
+    "id": 6,
+    "image_file": "image_06.png",
+    "bbox": [
+      232,
+      1125,
+      298,
+      1199
+    ],
+    "original_bbox": [
+      242,
+      1135,
+      288,
+      1189
+    ]
+  },
+  {
+    "id": 7,
+    "image_file": "image_07.png",
+    "bbox": [
+      247,
+      1228,
+      344,
+      1354
+    ],
+    "original_bbox": [
+      257,
+      1238,
+      334,
+      1344
+    ]
+  },
+  {
+    "id": 8,
+    "image_file": "image_08.png",
+    "bbox": [
+      240,
+      1369,
+      353,
+      1454
+    ],
+    "original_bbox": [
+      250,
+      1379,
+      343,
+      1444
+    ]
+  }
+]

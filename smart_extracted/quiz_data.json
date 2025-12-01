@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "word": "das Wasser",
+    "description": "torneira com água corrente",
+    "image_file": "01_das_Wasser.png",
+    "bbox": [
+      78,
+      193,
+      185,
+      300
+    ]
+  },
+  {
+    "id": 2,
+    "word": "das Wort",
+    "description": "pilha de livros",
+    "image_file": "02_das_Wort.png",
+    "bbox": [
+      78,
+      308,
+      185,
+      415
+    ]
+  },
+  {
+    "id": 3,
+    "word": "das Wetter",
+    "description": "cena de tempo/clima",
+    "image_file": "03_das_Wetter.png",
+    "bbox": [
+      78,
+      423,
+      185,
+      530
+    ]
+  },
+  {
+    "id": 4,
+    "word": "die Wassermelone",
+    "description": "fatia de melancia",
+    "image_file": "04_die_Wassermelone.png",
+    "bbox": [
+      78,
+      560,
+      185,
+      667
+    ]
+  },
+  {
+    "id": 5,
+    "word": "die Waffel",
+    "description": "waffle em formato de flor",
+    "image_file": "05_die_Waffel.png",
+    "bbox": [
+      78,
+      680,
+      185,
+      787
+    ]
+  },
+  {
+    "id": 6,
+    "word": "die Wolke",
+    "description": "nuvem azul",
+    "image_file": "06_die_Wolke.png",
+    "bbox": [
+      78,
+      800,
+      185,
+      907
+    ]
+  },
+  {
+    "id": 7,
+    "word": "die Krawatte",
+    "description": "gravata vermelha",
+    "image_file": "07_die_Krawatte.png",
+    "bbox": [
+      78,
+      920,
+      185,
+      1027
+    ]
+  },
+  {
+    "id": 8,
+    "word": "die Weste",
+    "description": "colete verde",
+    "image_file": "08_die_Weste.png",
+    "bbox": [
+      78,
+      1045,
+      185,
+      1152
+    ]
+  },
+  {
+    "id": 9,
+    "word": "die Wolle",
+    "description": "novelo de lã azul",
+    "image_file": "09_die_Wolle.png",
+    "bbox": [
+      78,
+      1165,
+      185,
+      1272
+    ]
+  }
+]
