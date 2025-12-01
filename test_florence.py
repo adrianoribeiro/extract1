@@ -37,39 +37,36 @@ def test_florence(image_path: str):
 
     print("Enviando para Florence-2...")
 
-    # Testar diferentes tasks do Florence-2
-    tasks_to_test = [
-        "<OD>",  # Object Detection
-        "<CAPTION_TO_PHRASE_GROUNDING>",  # Grounding com caption
-    ]
+    # Testar com Florence-2 (modelo oficial da Microsoft)
+    # Usando versão mais recente disponível no Replicate
 
-    for task in tasks_to_test:
-        print(f"\n--- Task: {task} ---")
+    try:
+        print("\n--- Object Detection ---")
+        output = replicate.run(
+            "adirik/florence-2-base-promptgen-v2:87e26ba3e153e15fef62c972ed165b9c8a14b5c0bb60e27eee3f6e5b0dc5f602",
+            input={
+                "image": data_uri,
+                "task": "Object Detection"
+            }
+        )
+        print(f"Resultado: {json.dumps(output, indent=2, ensure_ascii=False)}")
 
+    except Exception as e:
+        print(f"Erro modelo 1: {e}")
+
+        # Tentar modelo alternativo
+        print("\n--- Tentando modelo alternativo ---")
         try:
-            if task == "<CAPTION_TO_PHRASE_GROUNDING>":
-                # Para grounding, precisamos de um texto
-                output = replicate.run(
-                    "lucataco/florence-2-large:e946a1ac25f7b65c82c30eb5c3e8118a2e92b80dd42840157dd532f55eea3e2a",
-                    input={
-                        "image": data_uri,
-                        "task_input": task,
-                        "text_input": "icons, drawings, illustrations, pictures"
-                    }
-                )
-            else:
-                output = replicate.run(
-                    "lucataco/florence-2-large:e946a1ac25f7b65c82c30eb5c3e8118a2e92b80dd42840157dd532f55eea3e2a",
-                    input={
-                        "image": data_uri,
-                        "task_input": task
-                    }
-                )
-
+            output = replicate.run(
+                "zsxkib/florence-2:4d5c5835389d0a501c565e3c8af7e2e5b97ce32f0584cefe5f0ed12017ed2c2c",
+                input={
+                    "image": data_uri,
+                    "task": "object_detection"
+                }
+            )
             print(f"Resultado: {json.dumps(output, indent=2, ensure_ascii=False)}")
-
-        except Exception as e:
-            print(f"Erro: {e}")
+        except Exception as e2:
+            print(f"Erro modelo 2: {e2}")
 
     print("\n✓ Teste concluído")
 
