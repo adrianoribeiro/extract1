@@ -37,36 +37,22 @@ def test_florence(image_path: str):
 
     print("Enviando para Florence-2...")
 
-    # Testar com Florence-2 (modelo oficial da Microsoft)
-    # Usando versão mais recente disponível no Replicate
+    # Modelo correto: lucataco/florence-2-base
+    # Ref: https://replicate.com/lucataco/florence-2-base
 
     try:
         print("\n--- Object Detection ---")
         output = replicate.run(
-            "adirik/florence-2-base-promptgen-v2:87e26ba3e153e15fef62c972ed165b9c8a14b5c0bb60e27eee3f6e5b0dc5f602",
+            "lucataco/florence-2-base",
             input={
                 "image": data_uri,
-                "task": "Object Detection"
+                "task_input": "<OD>"
             }
         )
         print(f"Resultado: {json.dumps(output, indent=2, ensure_ascii=False)}")
 
     except Exception as e:
-        print(f"Erro modelo 1: {e}")
-
-        # Tentar modelo alternativo
-        print("\n--- Tentando modelo alternativo ---")
-        try:
-            output = replicate.run(
-                "zsxkib/florence-2:4d5c5835389d0a501c565e3c8af7e2e5b97ce32f0584cefe5f0ed12017ed2c2c",
-                input={
-                    "image": data_uri,
-                    "task": "object_detection"
-                }
-            )
-            print(f"Resultado: {json.dumps(output, indent=2, ensure_ascii=False)}")
-        except Exception as e2:
-            print(f"Erro modelo 2: {e2}")
+        print(f"Erro: {e}")
 
     print("\n✓ Teste concluído")
 
